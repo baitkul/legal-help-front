@@ -1,0 +1,33 @@
+/* purgecss start ignore */
+@import 'buefy/dist/buefy';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+/* purgecss end ignore */
+@import 'tailwindcss/utilities';
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-2xl;
+}
+h3 {
+  @apply text-xl;
+}
+h4 {
+  @apply text-base;
+}
+h5 {
+  @apply text-sm;
+}
+h6 {
+  @apply text-xs;
+}
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-gray-700;
+}
+.modal-card {
+  @apply w-auto overflow-y-auto;
+}
