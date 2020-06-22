@@ -41,18 +41,17 @@
         </b-field>
 
         <b-field
+          class="control"
           label="Пароль"
           :type="{'is-danger': errors.password}"
           :message="errors.password"
         >
-          <div class="flex">
+          <b-field class="control" :type="{'is-danger': errors.password}">
             <b-input v-model="model.password"></b-input>
-            <p class="control">
-              <b-button @click="onRandom">
-                <fa-icon class="fa-fw" icon="random"></fa-icon>
-              </b-button>
-            </p>
-          </div>
+            <b-button @click="onRandom">
+              <fa-icon class="fa-fw" icon="random"></fa-icon>
+            </b-button>
+          </b-field>
         </b-field>
 
         <b-field
@@ -76,7 +75,7 @@
               :native-value="role.value"
               :disabled="editMode"
             >
-              {{ role.label }}
+              <span class="text-sm">{{ role.label }}</span>
             </b-radio>
           </div>
         </b-field>

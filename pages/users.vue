@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <b-table class="mt-3" :data="data">
+      <b-table v-if="!loading" class="mt-3" :data="data">
         <template #default="{ row }">
           <b-table-column
             label="ID"
@@ -97,8 +97,8 @@
       </div>
     </div>
 
-    <b-modal :active.sync="active" @close="onClose">
-      <div v-if="active" class="px-3">
+    <b-modal :active.sync="active" has-modal-card @close="onClose">
+      <div v-if="active" class="px-2">
         <FormUser
           v-if="type === 'create' || type === 'edit'"
           :title="title"
@@ -130,6 +130,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       data: [],
       total: 0,
       active: false,
@@ -173,6 +174,7 @@ export default {
       const data = await this.$axios.$get('users', { params })
       this.data = data.results
       this.total = data.total
+      this.loading = false
     },
     format (date) {
       return format(new Date(date), 'dd.MM.yyyy HH:mm:ss')

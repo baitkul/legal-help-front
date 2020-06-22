@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card">
+  <div class="modal-card h-full">
     <header class="modal-card-head">
       <div class="modal-card-title">{{ title }}</div>
     </header>

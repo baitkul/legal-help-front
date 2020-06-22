@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <b-table class="mt-3" :data="data">
+      <b-table v-if="!loading" class="mt-3" :data="data">
         <template #default="{ row }">
           <b-table-column
             label="ID"
@@ -87,6 +87,17 @@
             </div>
           </b-table-column>
         </template>
+
+        <template #empty>
+          <section class="section">
+            <div class="content text-gray-700 text-center">
+              <p>
+                <fa-icon icon="frown" size="3x"></fa-icon>
+              </p>
+              <p class="mt-3">Нет данных</p>
+            </div>
+          </section>
+        </template>
       </b-table>
 
       <div class="mt-3">
@@ -100,8 +111,8 @@
       </div>
     </div>
 
-    <b-modal :active.sync="active" @close="onClose">
-      <div v-if="active" class="px-3">
+    <b-modal :active.sync="active" has-modal-card @close="onClose">
+      <div v-if="active" class="px-2">
         <FormAppeal
           v-if="type === 'create' || type === 'edit'"
           :title="title"
@@ -138,6 +149,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       data: [],
       users: [],
       total: 0,
@@ -186,6 +198,7 @@ export default {
       const data = await this.$axios.$get('appeals', { params })
       this.data = data.results
       this.total = data.total
+      this.loading = false
     },
     onAccept (id) {
       this.$buefy.dialog.confirm({
