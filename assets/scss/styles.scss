@@ -1,4 +1,4 @@
-/* purgecss start ignore */
+/*! purgecss start ignore */
 @import "bulma/sass/utilities/_all";
 
 $primary: #1989fa;
@@ -20,7 +20,7 @@ $colors: (
 @import "buefy/src/scss/buefy";
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-/* purgecss end ignore */
+/*! purgecss end ignore */
 @import 'tailwindcss/utilities';
 
 body {
