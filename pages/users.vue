@@ -3,13 +3,11 @@
     <div class="font-bold uppercase lg:text-2xl">Пользователи</div>
 
     <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
-      <div class="flex flex-wrap">
-        <b-button v-if="!isClient" class="mt-3" type="is-primary" @click="onCreate">
+      <div class="flex flex-wrap justify-between">
+        <b-button class="mt-3" type="is-primary" @click="onCreate">
           <fa-icon class="fa-fw mr-1" icon="plus"></fa-icon>
           <span class="font-bold">Добавить</span>
         </b-button>
-
-        <div class="flex-1"></div>
 
         <div class="mt-3">
           <b-field class="control">
@@ -147,6 +145,7 @@ export default {
     ...mapGetters([
       'isAdmin',
       'isOperator',
+      'isClient',
       'getUser',
       'getRoles',
     ])

@@ -9,7 +9,7 @@
       </b-button>
     </div>
 
-    <div class="mt-3 border w-full lg:w-5/12 rounded shadow">
+    <div class="mt-3 border max-w-2xl rounded shadow">
       <header class="modal-card-head">
         <div class="modal-card-title">Смена пароля</div>
       </header>

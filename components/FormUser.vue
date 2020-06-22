@@ -109,7 +109,6 @@ export default {
   data () {
     return {
       model: userSchema(this.entity),
-      rules: userRules,
     }
   },
   computed: {
@@ -121,18 +120,30 @@ export default {
     },
     editMode () {
       return !!this.entity.id
+    },
+    rules () {
+      let rules = { ...userRules }
+
+      if (this.editMode) {
+        if (this.model.password === '') {
+          rules.password = []
+        } else {
+          rules.password = [passwordLength, passwordPattern]
+        }
+      }
+
+      if (this.editMode) {
+        rules = this.$_.omit(rules, ['email'])
+      }
+
+      if (this.model.role !== 'CLIENT') {
+        rules = this.$_.omit(rules, ['phone'])
+      }
+
+      return rules
     }
   },
   watch: {
-    'model.password' (newVal, oldVal) {
-      if (this.editMode) {
-        if (newVal === '') {
-          this.rules.password = []
-        } else {
-          this.rules.password = [passwordLength, passwordPattern]
-        }
-      }
-    },
     'model.role' (newVal, oldVal) {
       if (this.createMode) {
         this.model.phone = ''
@@ -157,10 +168,16 @@ export default {
         return
       }
 
-      let values = this.$_.omitBy(this.model, this.$_.isNil)
-      if (this.editMode && values.password === '') {
-        values = this.$_.omit(values, ['password'])
-      }
+      const values = {}
+      const excluded = ['createdAt', 'updatedAt', 'lastLoginAt']
+      Object.keys(this.model).forEach((key) => {
+        const value = this.model[key]
+        const isNil = this.$_.isNil(value)
+
+        if (!excluded.includes(key) && !isNil && value !== '') {
+          values[key] = this.model[key]
+        }
+      })
 
       if (this.createMode) {
         this.$axios.$post('users', values)
