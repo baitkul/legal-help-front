@@ -9,7 +9,7 @@
       </b-button>
     </div>
 
-    <div class="mt-3 border w-full lg:w-2/5 rounded shadow">
+    <div class="mt-3 border w-full lg:w-5/12 rounded shadow">
       <header class="modal-card-head">
         <div class="modal-card-title">Профиль</div>
       </header>

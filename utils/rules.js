@@ -43,8 +43,8 @@ export const userRules = {
 export const appealRules = {
   fullname: [required, fullnameLength, fullnamePattern],
   phone: [required, phonePattern],
-  description: [required],
   address: [required],
+  description: [required],
 }
 
 export const profileRules = {
@@ -55,4 +55,9 @@ export const profileRules = {
 export const passwordRules = {
   password: [{ required: true, message: 'Обязательное поле' }, passwordLength, passwordPattern],
   newPassword: [{ required: true, message: 'Обязательное поле' }, passwordLength, passwordPattern],
+}
+
+export const loginRules = {
+  email: [{ ...required, message: ' ' }, { ...emailPattern, message: ' ' }],
+  password: [{ required: true, message: ' ' }, { ...passwordLength, message: ' ' }, { ...passwordPattern, message: ' ' }],
 }

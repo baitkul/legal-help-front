@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <div class="modal-card-title">{{ title }}</div>
+    </header>
+
     <section class="modal-card-body">
       <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
         <b-field
@@ -93,6 +97,10 @@ import { passwordLength, passwordPattern, userRules } from '~/utils/rules'
 
 export default {
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
     entity: {
       type: Object,
       required: true,

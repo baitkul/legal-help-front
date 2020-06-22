@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <div class="modal-card-title">{{ title }}</div>
+    </header>
+
     <section class="modal-card-body">
       <article class="panel is-primary">
         <div class="panel-block">
@@ -52,6 +56,10 @@ import { userSchema } from '~/utils/schemas'
 
 export default {
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
     entity: {
       type: Object,
       required: true,

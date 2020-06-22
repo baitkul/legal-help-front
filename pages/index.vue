@@ -1,27 +1,40 @@
 <template>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <div class="modal-card-title">Вход</div>
-    </header>
+  <div @keyup.enter="onSubmit">
+    <div class="font-bold text-2xl lg:text-3xl text-center">
+      <fa-icon class="fa-fw mr-1" icon="lock"></fa-icon>
+      Вход в систему
+    </div>
 
-    <section class="modal-card-body">
-      <b-field label="Эл. почта">
-        <b-input v-model="model.email"></b-input>
-      </b-field>
+    <div class="mt-5">
+      <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
+        <b-field
+          :type="{'is-danger': errors.email}"
+          label="Эл. почта"
+          :message="errors.email"
+        >
+          <b-input v-model="model.email"></b-input>
+        </b-field>
 
-      <b-field label="Пароль">
-        <b-input v-model="model.password" type="password" password-reveal></b-input>
-      </b-field>
-    </section>
+        <b-field
+          :type="{'is-danger': errors.password}"
+          label="Пароль"
+          :message="errors.password"
+        >
+          <b-input v-model="model.password" type="password" password-reveal></b-input>
+        </b-field>
+      </b-form>
+    </div>
 
-    <footer class="modal-card-foot justify-between">
+    <div class="mt-5">
+      <b-button class="block w-full" type="is-primary" @click="onSubmit">Войти</b-button>
       <nuxt-link class="self-start text-xs text-blue-500" to="/recovery">Забыли пароль?</nuxt-link>
-      <b-button type="is-primary" @click="onSubmit">Войти</b-button>
-    </footer>
+    </div>
   </div>
 </template>
 
 <script>
+import { loginRules } from '~/utils/rules'
+
 export default {
   auth: 'guest',
   layout: 'guest',
@@ -31,10 +44,16 @@ export default {
         email: '',
         password: '',
       },
+      rules: loginRules,
     }
   },
   methods: {
-    onSubmit () {
+    async onSubmit () {
+      const valid = await this.$refs.form.validate()
+      if (!valid) {
+        return
+      }
+
       this.$auth.loginWith('local', {
         data: { ...this.model }
       })

@@ -14,8 +14,8 @@ export const userSchema = morphism({
 export const appealSchema = morphism({
   fullname: ({ fullname }) => !fullname ? '' : fullname,
   phone: ({ phone }) => !phone ? '' : phone,
-  description: ({ description }) => !description ? '' : description,
   address: ({ address }) => !address ? '' : address,
+  description: ({ description }) => !description ? '' : description,
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 })

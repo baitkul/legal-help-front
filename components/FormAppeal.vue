@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <div class="modal-card-title">{{ title }}</div>
+    </header>
+
     <section class="modal-card-body">
       <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
         <b-field
@@ -35,19 +39,19 @@
         </b-field>
 
         <b-field
-          :type="{'is-danger': errors.description}"
-          label="Суть обращения"
-          :message="errors.description"
-        >
-          <b-input v-model="model.description"></b-input>
-        </b-field>
-
-        <b-field
           :type="{'is-danger': errors.address}"
           label="Местонахождение"
           :message="errors.address"
         >
-          <b-input v-model="model.address"></b-input>
+          <b-input v-model="model.address" type="textarea" rows="3"></b-input>
+        </b-field>
+
+        <b-field
+          :type="{'is-danger': errors.description}"
+          label="Суть обращения"
+          :message="errors.description"
+        >
+          <b-input v-model="model.description" type="textarea" rows="5"></b-input>
         </b-field>
       </b-form>
     </section>
@@ -65,6 +69,10 @@ import { appealRules } from '~/utils/rules'
 
 export default {
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
     entity: {
       type: Object,
       required: true,

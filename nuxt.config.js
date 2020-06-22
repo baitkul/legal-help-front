@@ -19,7 +19,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#1989fa', height: '2px' },
+  loading: { color: '#fff', height: '2px' },
   /*
   ** Global CSS
   */
@@ -48,6 +48,11 @@ export default {
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss'
   ],
+  tailwindcss: {
+    configPath: '~/tailwind.config.js',
+    cssPath: '~/assets/scss/styles.scss',
+    exposeConfig: false
+  },
   /*
   ** Nuxt.js modules
   */

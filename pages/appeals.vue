@@ -1,29 +1,42 @@
 <template>
   <div>
-    <div class="flex items-center justify-between">
-      <div class="font-bold uppercase lg:text-2xl">Обращения</div>
+    <div class="font-bold uppercase lg:text-2xl">Обращения</div>
 
-      <b-button v-if="!isClient" type="is-primary" @click="onCreate">
-        <fa-icon class="fa-fw mr-1" icon="plus"></fa-icon>
-        <span class="font-bold">Добавить</span>
-      </b-button>
-    </div>
+    <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
+      <div class="flex flex-wrap">
+        <b-button v-if="!isClient" class="mt-3" type="is-primary" @click="onCreate">
+          <fa-icon class="fa-fw mr-1" icon="plus"></fa-icon>
+          <span class="font-bold">Добавить</span>
+        </b-button>
 
-    <div class="mt-3 flex justify-between">
-      <b-checkbox v-model="filter">
-        Принятые
-      </b-checkbox>
+        <div class="flex-1"></div>
 
-      <b-input
-        v-model="search"
-        placeholder="Поиск"
-      >
-      </b-input>
-    </div>
+        <div class="mt-3">
+          <b-field class="control">
+            <b-select v-model="filter" placeholder="Select a name">
+              <option value="all">Все</option>
+              <option value="accepted">Принятые</option>
+            </b-select>
 
-    <div class="mt-3 border bg-white lg:p-4 text-xs lg:text-sm rounded shadow">
-      <b-table :data="data">
+            <b-input
+              v-model="search"
+              placeholder="Поиск"
+            >
+            </b-input>
+          </b-field>
+        </div>
+      </div>
+
+      <b-table class="mt-3" :data="data">
         <template #default="{ row }">
+          <b-table-column
+            label="ID"
+            width="40"
+            numeric
+          >
+            {{ row.id }}
+          </b-table-column>
+
           <b-table-column label="ФИО абонента">
             {{ row.fullname }}
           </b-table-column>
@@ -33,8 +46,6 @@
               <b-button
                 v-if="row.phone.includes('xxx')"
                 type="is-primary"
-                size="is-small"
-                plain
                 @click="onAccept(row.id)"
               >
                 {{ row.phone }}
@@ -48,8 +59,6 @@
             <template v-else-if="isAdmin || isOperator">
               <b-button
                 type="is-primary"
-                size="is-small"
-                plain
                 @click="onList(row.users)"
               >
                 {{ `${row.phone} (${row.users.length} выбр.)` }}
@@ -64,9 +73,7 @@
           <b-table-column label="Действия">
             <div>
               <b-button
-                type="is-primary"
-                size="is-small"
-                plain
+                type="is-text"
                 @click="onShow($_.cloneDeep(row))"
               >
                 <fa-icon class="fa-fw" icon="eye"></fa-icon>
@@ -74,8 +81,7 @@
 
               <b-button
                 v-if="isAdmin"
-                type="is-primary"
-                size="is-small"
+                type="is-text"
                 @click="onEdit($_.cloneDeep(row))"
               >
                 <fa-icon class="fa-fw" icon="pen"></fa-icon>
@@ -84,27 +90,36 @@
           </b-table-column>
         </template>
       </b-table>
-    </div>
 
-    <div class="mt-3">
-      <b-pagination
-        :total="total"
-        :per-page="perPage"
-        :current.sync="current"
-        @change="pageChange"
-      >
-      </b-pagination>
+      <div class="mt-3">
+        <b-pagination
+          :total="total"
+          :per-page="perPage"
+          :current.sync="current"
+          @change="pageChange"
+        >
+        </b-pagination>
+      </div>
     </div>
 
     <b-modal :active.sync="active" @close="onClose">
-      <div v-if="active" class="modal-card">
-        <header class="modal-card-head">
-          <div class="modal-card-title">{{ title }}</div>
-        </header>
-
-        <FormAppeal v-if="type === 'create' || type === 'edit'" :entity="entity" @apply="onClose(); fetch()" />
-        <InfoUsers v-else-if="type === 'list'" :data="users" />
-        <InfoAppeal v-else :entity="entity" />
+      <div v-if="active" class="px-3">
+        <FormAppeal
+          v-if="type === 'create' || type === 'edit'"
+          :title="title"
+          :entity="entity"
+          @apply="onClose(); fetch()"
+        />
+        <InfoUsers
+          v-else-if="type === 'list'"
+          :title="title"
+          :data="users"
+        />
+        <InfoAppeal
+          v-else
+          :title="title"
+          :entity="entity"
+        />
       </div>
     </b-modal>
   </div>
@@ -134,7 +149,7 @@ export default {
       entity: null,
       current: 1,
       perPage: 10,
-      filter: false,
+      filter: 'all',
       search: '',
     }
   },
@@ -163,7 +178,7 @@ export default {
       const params = {
         page: this.current,
         pageSize: this.perPage,
-        filter: !this.filter ? 'all' : 'accepted'
+        filter: this.filter
       }
 
       if (this.search) {
