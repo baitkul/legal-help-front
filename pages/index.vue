@@ -1,7 +1,6 @@
 <template>
   <div @keyup.enter="onSubmit">
     <div class="font-bold text-2xl lg:text-3xl text-center">
-      <fa-icon class="fa-fw mr-1" icon="lock"></fa-icon>
       Вход в систему
     </div>
 
@@ -26,7 +25,7 @@
     </div>
 
     <div class="mt-5">
-      <b-button class="block w-full" type="is-primary" @click="onSubmit">Войти</b-button>
+      <b-button class="w-full" type="is-primary" @click="onSubmit">Войти</b-button>
       <nuxt-link class="self-start text-xs text-blue-500" to="/recovery">Забыли пароль?</nuxt-link>
     </div>
   </div>

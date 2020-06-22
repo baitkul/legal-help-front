@@ -61,3 +61,9 @@ export const loginRules = {
   email: [{ ...required, message: ' ' }, { ...emailPattern, message: ' ' }],
   password: [{ required: true, message: ' ' }, { ...passwordLength, message: ' ' }, { ...passwordPattern, message: ' ' }],
 }
+
+export const signupRules = {
+  phone: [required, phonePattern],
+  fullname: [required, fullnameLength, fullnamePattern],
+  password: [{ required: true, message: 'Обязательное поле' }, passwordLength, passwordPattern],
+}
