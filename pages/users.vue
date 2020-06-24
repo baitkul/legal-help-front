@@ -74,6 +74,15 @@
                 <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
                 Редактирование
               </b-dropdown-item>
+
+              <b-dropdown-item
+                v-if="row.role === 'CLIENT'"
+                tag="button"
+                @click="onBalance($_.cloneDeep(row))"
+              >
+                <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
+                Пополнение баланса
+              </b-dropdown-item>
             </b-dropdown>
           </b-table-column>
         </template>
@@ -109,6 +118,12 @@
           :entity="entity"
           @apply="onClose(); fetch()"
         />
+        <FormBalance
+          v-else-if="type === 'balance'"
+          :title="title"
+          :entity="entity"
+          @apply="onClose(); fetch()"
+        />
         <InfoUser
           v-else
           :title="title"
@@ -123,12 +138,14 @@
 import { format } from 'date-fns'
 import { debounce } from 'lodash-es'
 import { mapGetters } from 'vuex'
+import FormBalance from '~/components/FormBalance'
 import FormUser from '~/components/FormUser'
 import InfoUser from '~/components/InfoUser'
 
 export default {
   middleware: 'users',
   components: {
+    FormBalance,
     FormUser,
     InfoUser,
   },
@@ -182,6 +199,12 @@ export default {
     },
     format (date) {
       return format(new Date(date), 'dd.MM.yyyy HH:mm:ss')
+    },
+    onBalance (entity) {
+      this.active = true
+      this.title = 'Пополнение баланса'
+      this.type = 'balance'
+      this.entity = entity
     },
     onCreate () {
       this.active = true

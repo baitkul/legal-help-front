@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card w-full mx-0">
+  <div class="modal-card w-full mx-0" @keyup.enter="onSubmit">
     <header class="modal-card-head">
       <div class="modal-card-title">Смена пароля</div>
     </header>
