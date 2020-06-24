@@ -4,25 +4,23 @@
       <div class="modal-card-title">{{ title }}</div>
     </header>
 
-    <section class="modal-card-body">
-      <article class="panel is-primary">
-        <template v-if="data.length">
-          <div
-            v-for="(item, index) in data"
-            :key="index"
-            class="panel-block"
-          >
-            <span class="panel-icon">
-              <fa-icon class="fa-fw" icon="user"></fa-icon>
-            </span>
-            {{ item.fullname }}
-          </div>
-        </template>
-
-        <div v-else class="text-sm">
-          Нет данных
+    <section class="modal-card-body px-0">
+      <template v-if="data.length">
+        <div
+          v-for="(item, index) in data"
+          :key="index"
+          class="panel-block"
+        >
+          <span class="panel-icon">
+            <fa-icon class="fa-fw" icon="user"></fa-icon>
+          </span>
+          {{ item.fullname }}
         </div>
-      </article>
+      </template>
+
+      <div v-else class="px-5 text-sm">
+        Нет данных
+      </div>
     </section>
 
     <footer class="modal-card-foot">

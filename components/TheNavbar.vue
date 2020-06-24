@@ -2,42 +2,55 @@
   <b-navbar v-if="isLoggedIn" type="is-white" spaced shadow>
     <template #brand>
       <b-navbar-item tag="nuxt-link" to="/">
-        <span class="font-bold">СЮП</span>
+        <span class="font-bold text-xl">СЮП</span>
       </b-navbar-item>
     </template>
 
     <template #start>
       <b-navbar-item tag="nuxt-link" to="/appeals">
-        <fa-icon class="fa-fw mr-1" icon="file-alt"></fa-icon>
+        <fa-icon class="fa-fw mr-2" icon="file-alt"></fa-icon>
         Обращения
       </b-navbar-item>
+
       <b-navbar-item v-if="!isClient" tag="nuxt-link" to="/users">
-        <fa-icon class="fa-fw mr-1" icon="user-friends"></fa-icon>
+        <fa-icon class="fa-fw mr-2" icon="user-friends"></fa-icon>
         Пользователи
       </b-navbar-item>
+
       <b-navbar-dropdown>
         <template #label>
-          <fa-icon class="fa-fw mr-1" icon="boxes"></fa-icon>
+          <fa-icon class="fa-fw mr-2" icon="boxes"></fa-icon>
           Администрирование
         </template>
 
-        <b-navbar-item tag="nuxt-link" to="/transactions">
-          Транзакции
-        </b-navbar-item>
-        <b-navbar-item tag="nuxt-link" to="/tokens">
-          Токены
-        </b-navbar-item>
+        <b-navbar-item tag="nuxt-link" to="/transactions">Транзакции</b-navbar-item>
+        <b-navbar-item tag="nuxt-link" to="/tokens">Токены</b-navbar-item>
+      </b-navbar-dropdown>
+
+      <b-navbar-dropdown>
+        <template #label>
+          <fa-icon class="fa-fw mr-2" icon="cog"></fa-icon>
+          Настройки
+        </template>
+
+        <b-navbar-item tag="nuxt-link" to="/settings/profile">Профиль</b-navbar-item>
+        <b-navbar-item tag="nuxt-link" to="/settings/password">Смена пароля</b-navbar-item>
       </b-navbar-dropdown>
     </template>
 
     <template #end>
-      <b-navbar-item tag="nuxt-link" to="/settings">
-        <fa-icon class="fa-fw mr-1" icon="user-circle"></fa-icon>
+      <b-navbar-item tag="nuxt-link" to="/profile" @click="$auth.logout()">
+        <fa-icon class="fa-fw mr-2" icon="user-circle"></fa-icon>
         {{ getUser.fullname }}
       </b-navbar-item>
-      <b-navbar-item tag="button" @click="$auth.logout()">
-        <fa-icon class="fa-fw mr-1" icon="sign-out-alt"></fa-icon>
-        Выйти
+
+      <b-navbar-item tag="div">
+        <div>
+          <b-button class="border-none font-normal" @click="$auth.logout()">
+            <fa-icon class="fa-fw mr-2" icon="sign-out-alt"></fa-icon>
+            Выйти
+          </b-button>
+        </div>
       </b-navbar-item>
     </template>
   </b-navbar>
@@ -58,7 +71,7 @@ export default {
 </script>
 
 <style>
-.navbar-brand > a.navbar-item:hover {
+.navbar-brand > a.navbar-item {
   @apply bg-transparent !important;
 }
 </style>

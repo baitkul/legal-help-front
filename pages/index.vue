@@ -25,8 +25,8 @@
     </div>
 
     <div class="mt-5">
-      <b-button class="w-full" type="is-primary" @click="onSubmit">Войти</b-button>
-      <nuxt-link class="self-start text-xs text-blue-500" to="/recovery">Забыли пароль?</nuxt-link>
+      <b-button type="is-primary" expanded @click="onSubmit">Войти</b-button>
+      <nuxt-link class="inline-block mt-5 text-xs text-blue-500" to="/recovery">Забыли пароль?</nuxt-link>
     </div>
   </div>
 </template>

@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="modal-card w-full mx-0">
+    <header class="modal-card-head">
+      <div class="modal-card-title">Профиль</div>
+    </header>
+
     <section class="modal-card-body">
       <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
         <b-field

@@ -1,6 +1,7 @@
 /*! purgecss start ignore */
 @import "bulma/sass/utilities/_all";
 
+$input-focus-box-shadow-size: 0 0 0 3px;
 $primary: #1989fa;
 $primary-invert: findColorInvert($primary);
 
@@ -18,32 +19,4 @@ $colors: (
 
 @import "bulma";
 @import "buefy/src/scss/buefy";
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
 /*! purgecss end ignore */
-@import 'tailwindcss/utilities';
-
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
-h1 {
-  @apply text-3xl;
-}
-h2 {
-  @apply text-2xl;
-}
-h3 {
-  @apply text-xl;
-}
-h4 {
-  @apply text-base;
-}
-h5 {
-  @apply text-sm;
-}
-h6 {
-  @apply text-xs;
-}
-h1, h2, h3, h4, h5, h6 {
-  @apply font-bold text-gray-700;
-}

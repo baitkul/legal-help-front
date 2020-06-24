@@ -6,23 +6,23 @@
           <nuxt-link to="/settings">Настройки</nuxt-link>
         </li>
         <li class="is-active">
-          <nuxt-link to="/">Смена пароля</nuxt-link>
+          <nuxt-link to="/">Профиль</nuxt-link>
         </li>
       </ul>
     </nav>
 
     <div class="max-w-2xl mt-3 border rounded shadow">
-      <FormSettingsPassword />
+      <FormSettingsProfile />
     </div>
   </div>
 </template>
 
 <script>
-import FormSettingsPassword from '~/components/FormSettingsPassword'
+import FormSettingsProfile from '~/components/FormSettingsProfile'
 
 export default {
   components: {
-    FormSettingsPassword,
+    FormSettingsProfile,
   },
   head () {
     return {

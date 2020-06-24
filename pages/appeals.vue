@@ -1,12 +1,18 @@
 <template>
   <div>
-    <div class="font-bold uppercase lg:text-2xl">Обращения</div>
+    <nav class="breadcrumb">
+      <ul>
+        <li class="is-active">
+          <nuxt-link to="/">Обращения</nuxt-link>
+        </li>
+      </ul>
+    </nav>
 
     <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
       <div class="flex flex-wrap" :class="{ 'justify-end': isClient, 'justify-between': !isClient }">
         <b-button v-if="!isClient" class="mt-3" type="is-primary" @click="onCreate">
-          <fa-icon class="fa-fw mr-1" icon="plus"></fa-icon>
-          <span class="font-bold">Добавить</span>
+          <fa-icon class="fa-fw mr-2" icon="plus"></fa-icon>
+          Добавить
         </b-button>
 
         <div class="mt-3">
@@ -46,11 +52,13 @@
                 type="is-primary"
                 @click="onAccept(row.id)"
               >
-                {{ row.phone }}
+                {{ `${row.phone} (${row.acceptedByUsersCount} выбр.)` }}
               </b-button>
 
               <template v-else>
-                {{ row.phone }}
+                <b-button type="is-primary">
+                  {{ `${row.phone} (${row.acceptedByUsersCount} выбр.)` }}
+                </b-button>
               </template>
             </template>
 
@@ -69,22 +77,20 @@
           </b-table-column>
 
           <b-table-column label="Действия">
-            <div>
-              <b-button
-                type="is-text"
-                @click="onShow($_.cloneDeep(row))"
-              >
-                <fa-icon class="fa-fw" icon="eye"></fa-icon>
+            <b-dropdown>
+              <b-button slot="trigger" type="is-text">
+                <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
               </b-button>
 
-              <b-button
-                v-if="isAdmin"
-                type="is-text"
-                @click="onEdit($_.cloneDeep(row))"
-              >
-                <fa-icon class="fa-fw" icon="pen"></fa-icon>
-              </b-button>
-            </div>
+              <b-dropdown-item tag="button" @click="onShow($_.cloneDeep(row))">
+                <fa-icon class="fa-fw mr-2" icon="eye"></fa-icon>
+                Просмотр
+              </b-dropdown-item>
+              <b-dropdown-item v-if="isAdmin" tag="button" @click="onEdit($_.cloneDeep(row))">
+                <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
+                Редактирование
+              </b-dropdown-item>
+            </b-dropdown>
           </b-table-column>
         </template>
 

@@ -1,14 +1,60 @@
 import Vue from 'vue'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleLeft,
+  faAngleRight,
+  faBoxes,
+  faCalendarAlt,
+  faCog,
+  faEllipsisH,
+  faEnvelope,
+  faExclamationCircle,
+  faEye,
+  faFileAlt,
+  faFrown,
+  faIdCard,
+  faInfo,
+  faMapMarkerAlt,
+  faPen,
+  faPhoneAlt,
+  faPlus,
+  faRandom,
+  faSignOutAlt,
+  faUser,
+  faUserCircle,
+  faUserFriends,
+  faWallet,
+} from '@fortawesome/free-solid-svg-icons'
 
 // This is important, we are going to let Nuxt.js worry about the CSS
 config.autoAddCss = false
 
 // You can add your icons directly in this plugin. See other examples for how you
 // can add other styles or just individual icons.
-library.add(fas)
+library.add(faAngleLeft)
+library.add(faAngleRight)
+library.add(faBoxes)
+library.add(faCalendarAlt)
+library.add(faCog)
+library.add(faEllipsisH)
+library.add(faEnvelope)
+library.add(faExclamationCircle)
+library.add(faEye)
+library.add(faFileAlt)
+library.add(faFrown)
+library.add(faIdCard)
+library.add(faInfo)
+library.add(faMapMarkerAlt)
+library.add(faPen)
+library.add(faPhoneAlt)
+library.add(faPlus)
+library.add(faRandom)
+library.add(faSignOutAlt)
+library.add(faUser)
+library.add(faUserCircle)
+library.add(faUserFriends)
+library.add(faWallet)
 
 // Register the component globally
 Vue.component('fa-icon', FontAwesomeIcon)

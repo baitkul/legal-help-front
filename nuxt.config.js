@@ -24,6 +24,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '~/assets/scss/buefy.scss',
     '@fortawesome/fontawesome-svg-core/styles.css'
   ],
   purgeCSS: {
@@ -48,11 +49,6 @@ export default {
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss'
   ],
-  tailwindcss: {
-    configPath: '~/tailwind.config.js',
-    cssPath: '~/assets/scss/styles.scss',
-    exposeConfig: false
-  },
   /*
   ** Nuxt.js modules
   */

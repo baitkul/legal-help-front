@@ -19,8 +19,8 @@
     </div>
 
     <div class="mt-5">
-      <b-button class="w-full" type="is-primary" @click="onSubmit">Отправить</b-button>
-      <b-button class="mt-1 w-full" tag="nuxt-link" to="/">Отмена</b-button>
+      <b-button type="is-primary" expanded @click="onSubmit">Отправить</b-button>
+      <b-button class="mt-1" expanded tag="nuxt-link" to="/">Отмена</b-button>
     </div>
   </div>
 </template>

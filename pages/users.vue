@@ -1,12 +1,18 @@
 <template>
   <div>
-    <div class="font-bold uppercase lg:text-2xl">Пользователи</div>
+    <nav class="breadcrumb">
+      <ul>
+        <li class="is-active">
+          <nuxt-link to="/">Пользователи</nuxt-link>
+        </li>
+      </ul>
+    </nav>
 
     <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
       <div class="flex flex-wrap justify-between">
         <b-button class="mt-3" type="is-primary" @click="onCreate">
-          <fa-icon class="fa-fw mr-1" icon="plus"></fa-icon>
-          <span class="font-bold">Добавить</span>
+          <fa-icon class="fa-fw mr-2" icon="plus"></fa-icon>
+          Добавить
         </b-button>
 
         <div class="mt-3">
@@ -39,38 +45,36 @@
           </b-table-column>
 
           <b-table-column label="Роль">
-            <b-tag type="is-light">
-              <span class="font-bold">
-                {{ getRoles.find(role => role.value === row.role).label.toUpperCase() }}
-              </span>
+            <b-tag type="is-light font-bold">
+              {{ getRoles.find(role => role.value === row.role).label.toUpperCase() }}
             </b-tag>
           </b-table-column>
 
           <b-table-column label="Дата регистрации">
-            <b-tag type="is-light">
-              <span class="font-bold">
-                {{ format(row.createdAt) }}
-              </span>
+            <b-tag type="is-light font-bold">
+              {{ format(row.createdAt) }}
             </b-tag>
           </b-table-column>
 
           <b-table-column label="Действия">
-            <div>
-              <b-button
-                type="is-text"
-                @click="onactive($_.cloneDeep(row))"
-              >
-                <fa-icon class="fa-fw" icon="eye"></fa-icon>
+            <b-dropdown>
+              <b-button slot="trigger" type="is-text">
+                <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
               </b-button>
 
-              <b-button
+              <b-dropdown-item tag="button" @click="onShow($_.cloneDeep(row))">
+                <fa-icon class="fa-fw mr-2" icon="eye"></fa-icon>
+                Просмотр
+              </b-dropdown-item>
+              <b-dropdown-item
                 v-if="(isAdmin && row.role !== 'ADMIN') || (isOperator && row.role === 'CLIENT')"
-                type="is-text"
+                tag="button"
                 @click="onEdit($_.cloneDeep(row))"
               >
-                <fa-icon class="fa-fw" icon="pen"></fa-icon>
-              </b-button>
-            </div>
+                <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
+                Редактирование
+              </b-dropdown-item>
+            </b-dropdown>
           </b-table-column>
         </template>
 
@@ -191,10 +195,10 @@ export default {
       this.type = 'edit'
       this.entity = entity
     },
-    onactive (entity) {
+    onShow (entity) {
       this.active = true
       this.title = 'Просмотр пользователя'
-      this.type = 'active'
+      this.type = 'show'
       this.entity = entity
     },
     onClose () {

@@ -1,31 +1,33 @@
 <template>
   <div>
-    <div class="flex items-center justify-between">
-      <div class="font-bold uppercase lg:text-2xl">Настройки</div>
+    <nav class="breadcrumb">
+      <ul>
+        <li class="is-active">
+          <nuxt-link to="/">Настройки</nuxt-link>
+        </li>
+      </ul>
+    </nav>
 
-      <b-button type="is-primary" tag="nuxt-link" to="/settings/password">
-        <fa-icon class="fa-fw mr-1" icon="key"></fa-icon>
-        <span class="font-bold">Смена пароля</span>
-      </b-button>
-    </div>
-
-    <div class="mt-3 border max-w-2xl rounded shadow">
-      <header class="modal-card-head">
-        <div class="modal-card-title">Профиль</div>
-      </header>
-
-      <FormSettingsProfile />
+    <div class="mt-3 p-3 border bg-white rounded shadow max-w-2xl">
+      <aside class="menu">
+        <p class="menu-label">
+          Общие
+        </p>
+        <ul class="menu-list">
+          <li>
+            <nuxt-link to="/settings/profile">Профиль</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/settings/password">Смена пароля</nuxt-link>
+          </li>
+        </ul>
+      </aside>
     </div>
   </div>
 </template>
 
 <script>
-import FormSettingsProfile from '~/components/FormSettingsProfile'
-
 export default {
-  components: {
-    FormSettingsProfile,
-  },
   head () {
     return {
       title: 'Настройки'

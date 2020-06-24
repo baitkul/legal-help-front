@@ -1,18 +1,22 @@
 <template>
-  <div>
+  <div class="modal-card w-full mx-0">
+    <header class="modal-card-head">
+      <div class="modal-card-title">Смена пароля</div>
+    </header>
+
     <section class="modal-card-body">
       <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
         <b-field
-          label="Пароль"
           :type="{'is-danger': errors.password}"
+          label="Старый пароль"
           :message="errors.password"
         >
           <b-input v-model="model.password" type="password" password-reveal></b-input>
         </b-field>
 
         <b-field
-          label="Новый пароль"
           :type="{'is-danger': errors.newPassword}"
+          label="Новый пароль"
           :message="errors.newPassword"
         >
           <b-input v-model="model.newPassword" type="password" password-reveal></b-input>
