@@ -9,7 +9,7 @@
     </nav>
 
     <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
-      <div class="flex flex-wrap" :class="{ 'justify-end': isClient, 'justify-between': !isClient }">
+      <div class="flex flex-wrap" :class="{ 'lg:justify-end': isClient, 'justify-between': !isClient }">
         <b-button v-if="!isClient" class="mt-3" type="is-primary" @click="onCreate">
           <fa-icon class="fa-fw mr-2" icon="plus"></fa-icon>
           Добавить
@@ -46,30 +46,39 @@
           </b-table-column>
 
           <b-table-column label="Номер телефона">
-            <template v-if="isClient">
-              <b-button
-                v-if="row.phone.includes('xxx')"
-                type="is-primary"
-                @click="onAccept(row.id)"
-              >
-                {{ `${row.phone} (${row.acceptedByUsersCount} выбр.)` }}
-              </b-button>
+            <div class="flex items-center">
+              <template v-if="isClient">
+                <b-button
+                  v-if="row.phone.includes('xxx')"
+                  type="is-primary"
+                  outlined
+                  @click="onAccept(row.id)"
+                >
+                  {{ row.phone }}
+                </b-button>
+
+                <b-button
+                  v-else
+                  type="is-light"
+                >
+                  {{ row.phone }}
+                </b-button>
+
+                <span class="ml-2 text-xs">{{ `Принято: ${row.acceptedByUsersCount}` }}</span>
+              </template>
 
               <template v-else>
-                <b-button type="is-primary">
-                  {{ `${row.phone} (${row.acceptedByUsersCount} выбр.)` }}
+                {{ row.phone }}
+                <b-button
+                  class="ml-2 text-xs"
+                  type="is-primary"
+                  outlined
+                  @click="onList(row.users)"
+                >
+                  {{ `Принято: ${row.users.length}` }}
                 </b-button>
               </template>
-            </template>
-
-            <template v-else-if="isAdmin || isOperator">
-              <b-button
-                type="is-primary"
-                @click="onList(row.users)"
-              >
-                {{ `${row.phone} (${row.users.length} выбр.)` }}
-              </b-button>
-            </template>
+            </div>
           </b-table-column>
 
           <b-table-column label="Местонахождение">
@@ -77,16 +86,16 @@
           </b-table-column>
 
           <b-table-column label="Действия">
-            <b-dropdown>
+            <b-button type="is-text" @click="onShow($_.cloneDeep(row))">
+              <fa-icon class="fa-fw" icon="eye"></fa-icon>
+            </b-button>
+
+            <b-dropdown v-if="!isClient">
               <b-button slot="trigger" type="is-text">
                 <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
               </b-button>
 
-              <b-dropdown-item tag="button" @click="onShow($_.cloneDeep(row))">
-                <fa-icon class="fa-fw mr-2" icon="eye"></fa-icon>
-                Просмотр
-              </b-dropdown-item>
-              <b-dropdown-item v-if="isAdmin" tag="button" @click="onEdit($_.cloneDeep(row))">
+              <b-dropdown-item tag="button" @click="onEdit($_.cloneDeep(row))">
                 <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
                 Редактирование
               </b-dropdown-item>
@@ -171,8 +180,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isAdmin',
-      'isOperator',
       'isClient',
     ])
   },

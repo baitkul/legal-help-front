@@ -1,31 +1,29 @@
 <template>
-  <div class="modal-card" @keyup.enter="onSubmit">
+  <div class="modal-card max-w-md mx-auto" @keyup.enter="onSubmit">
     <header class="modal-card-head">
       <div class="modal-card-title">{{ title }}</div>
     </header>
 
-    <section class="modal-card-body">
+    <section class="modal-card-body py-10">
+      <p class="mb-3 text-sm text-gray-700">Текущий баланс: <span class="font-bold">{{ entity.balance ? entity.balance : 0 }}</span></p>
+
       <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
-        <b-field
-          :type="{'is-danger': errors.amount}"
-          label="Сумма"
-          :message="errors.amount"
-        >
-          <b-input id="amount" v-model="model.amount"></b-input>
+        <b-field :type="{'is-danger': errors.amount}" :message="errors.amount">
+          <b-field class="control" :type="{'is-danger': errors.amount}">
+            <b-input id="amount" v-model="model.amount" placeholder="Введите сумму"></b-input>
+            <span class="button is-static text-xl lg:text-2xl">сом</span>
+          </b-field>
         </b-field>
       </b-form>
     </section>
 
     <footer class="modal-card-foot">
-      <b-button @click="$parent.close">Отмена</b-button>
-      <b-button type="is-primary" @click="onSubmit">Отправить</b-button>
+      <b-button type="is-primary" expanded @click="onSubmit">Пополнить</b-button>
     </footer>
   </div>
 </template>
 
 <script>
-import { required } from '~/utils/rules'
-
 export default {
   props: {
     title: {
@@ -44,21 +42,16 @@ export default {
       },
       rules: {
         amount: [
-          required,
           {
             validator: (rule, value, callback) => {
-              const pattern = /^[1-9][0-9]*$/
+              const pattern = /^[-]?[1-9][0-9]*$/
               if (!pattern.test(value)) {
                 callback(new Error('Сумма невалидна'))
-              }
-
-              if (value > this.entity.balance) {
-                callback(new Error('На вашем балансе недостаточно средств'))
               } else {
                 callback()
               }
             }
-          },
+          }
         ]
       },
     }

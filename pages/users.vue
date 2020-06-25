@@ -36,36 +36,39 @@
             {{ row.id }}
           </b-table-column>
 
-          <b-table-column label="Эл. почта">
-            {{ row.email }}
+          <b-table-column label="ФИО">
+            <div class="flex flex-col">
+              {{ row.fullname }}
+              <div class="mt-1 text-xs text-gray-700">{{ row.email }}</div>
+            </div>
           </b-table-column>
 
-          <b-table-column label="ФИО">
-            {{ row.fullname }}
+          <b-table-column label="Баланс">
+            {{ row.balance ? row.balance : '-' }}
           </b-table-column>
 
           <b-table-column label="Роль">
-            <b-tag type="is-light font-bold">
+            <b-tag class="is-light font-bold">
               {{ getRoles.find(role => role.value === row.role).label.toUpperCase() }}
             </b-tag>
           </b-table-column>
 
           <b-table-column label="Дата регистрации">
-            <b-tag type="is-light font-bold">
+            <b-tag class="is-light font-bold">
               {{ format(row.createdAt) }}
             </b-tag>
           </b-table-column>
 
           <b-table-column label="Действия">
+            <b-button type="is-text" @click="onShow($_.cloneDeep(row))">
+              <fa-icon class="fa-fw" icon="eye"></fa-icon>
+            </b-button>
+
             <b-dropdown>
               <b-button slot="trigger" type="is-text">
                 <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
               </b-button>
 
-              <b-dropdown-item tag="button" @click="onShow($_.cloneDeep(row))">
-                <fa-icon class="fa-fw mr-2" icon="eye"></fa-icon>
-                Просмотр
-              </b-dropdown-item>
               <b-dropdown-item
                 v-if="(isAdmin && row.role !== 'ADMIN') || (isOperator && row.role === 'CLIENT')"
                 tag="button"
