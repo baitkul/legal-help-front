@@ -22,7 +22,7 @@
           :message="errors.phone"
         >
           <div class="control has-icons-right">
-            <input v-model="model.phone" v-mask="`996-###-###-###`" :class="{ input: true, 'is-danger': errors.phone}" autocomplete="on" placeholder="996-XXX-XXX-XXX">
+            <input v-model="model.phone" v-mask="`996-###-###-###`" :class="{ input: true, 'is-danger': errors.phone}" placeholder="996-XXX-XXX-XXX">
             <span v-if="errors.phone" class="icon is-right has-text-danger">
               <fa-icon icon="exclamation-circle" size="lg"></fa-icon>
             </span>

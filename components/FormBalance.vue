@@ -10,7 +10,7 @@
       <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
         <b-field :type="{'is-danger': errors.amount}" :message="errors.amount">
           <b-field class="control" :type="{'is-danger': errors.amount}">
-            <b-input id="amount" v-model="model.amount" placeholder="Введите сумму"></b-input>
+            <b-input v-model="model.amount" size="text-xl lg:text-2xl" placeholder="Введите сумму"></b-input>
             <span class="button is-static text-xl lg:text-2xl">сом</span>
           </b-field>
         </b-field>
@@ -65,10 +65,10 @@ export default {
 
       const params = {
         amount: Number.parseInt(this.model.amount),
-        user_id: this.entity.id,
+        receiverId: this.entity.id,
       }
 
-      this.$axios.$post('users/balance', params)
+      this.$axios.$post('transactions', params)
         .then(this.resolveHandler)
         .catch(this.rejectHandler)
     },
@@ -92,12 +92,5 @@ export default {
 </script>
 
 <style>
-input#amount {
-  @apply text-xl !important;
-}
-@screen lg {
-  input#amount {
-    @apply text-2xl !important;
-  }
-}
+
 </style>

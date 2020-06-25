@@ -86,20 +86,22 @@
           </b-table-column>
 
           <b-table-column label="Действия">
-            <b-button type="is-text" @click="onShow($_.cloneDeep(row))">
-              <fa-icon class="fa-fw" icon="eye"></fa-icon>
-            </b-button>
-
-            <b-dropdown v-if="!isClient">
-              <b-button slot="trigger" type="is-text">
-                <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
+            <div>
+              <b-button type="is-text" @click="onShow($_.cloneDeep(row))">
+                <fa-icon class="fa-fw" icon="eye"></fa-icon>
               </b-button>
 
-              <b-dropdown-item tag="button" @click="onEdit($_.cloneDeep(row))">
-                <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
-                Редактирование
-              </b-dropdown-item>
-            </b-dropdown>
+              <b-dropdown v-if="!isClient">
+                <b-button slot="trigger" type="is-text">
+                  <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
+                </b-button>
+
+                <b-dropdown-item tag="button" @click="onEdit($_.cloneDeep(row))">
+                  <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
+                  Редактирование
+                </b-dropdown-item>
+              </b-dropdown>
+            </div>
           </b-table-column>
         </template>
 

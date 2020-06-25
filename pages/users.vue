@@ -44,7 +44,7 @@
           </b-table-column>
 
           <b-table-column label="Баланс">
-            {{ row.balance ? row.balance : '-' }}
+            {{ row.role === 'CLIENT' ? row.balance ? row.balance : 0 : '-' }}
           </b-table-column>
 
           <b-table-column label="Роль">
@@ -60,33 +60,35 @@
           </b-table-column>
 
           <b-table-column label="Действия">
-            <b-button type="is-text" @click="onShow($_.cloneDeep(row))">
-              <fa-icon class="fa-fw" icon="eye"></fa-icon>
-            </b-button>
-
-            <b-dropdown>
-              <b-button slot="trigger" type="is-text">
-                <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
+            <div>
+              <b-button type="is-text" @click="onShow($_.cloneDeep(row))">
+                <fa-icon class="fa-fw" icon="eye"></fa-icon>
               </b-button>
 
-              <b-dropdown-item
-                v-if="(isAdmin && row.role !== 'ADMIN') || (isOperator && row.role === 'CLIENT')"
-                tag="button"
-                @click="onEdit($_.cloneDeep(row))"
-              >
-                <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
-                Редактирование
-              </b-dropdown-item>
+              <b-dropdown>
+                <b-button slot="trigger" type="is-text">
+                  <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
+                </b-button>
 
-              <b-dropdown-item
-                v-if="row.role === 'CLIENT'"
-                tag="button"
-                @click="onBalance($_.cloneDeep(row))"
-              >
-                <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
-                Пополнение баланса
-              </b-dropdown-item>
-            </b-dropdown>
+                <b-dropdown-item
+                  v-if="(isAdmin && row.role !== 'ADMIN') || (isOperator && row.role === 'CLIENT')"
+                  tag="button"
+                  @click="onEdit($_.cloneDeep(row))"
+                >
+                  <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
+                  Редактирование
+                </b-dropdown-item>
+
+                <b-dropdown-item
+                  v-if="row.role === 'CLIENT'"
+                  tag="button"
+                  @click="onBalance($_.cloneDeep(row))"
+                >
+                  <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
+                  Пополнение баланса
+                </b-dropdown-item>
+              </b-dropdown>
+            </div>
           </b-table-column>
         </template>
 
