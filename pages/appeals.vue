@@ -231,7 +231,14 @@ export default {
 
               this.fetch()
             })
-            .catch(() => {})
+            .catch((err) => {
+              const message = err.response.data.message
+
+              this.$buefy.notification.open({
+                type: 'is-danger',
+                message,
+              })
+            })
         }
       })
     },

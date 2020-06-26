@@ -26,6 +26,12 @@
           </b-table-column>
 
           <b-table-column label="Сумма">
+            <fa-icon
+              class="fa-fw mr-2 is-success"
+              :class="row.amount > 0 ? 'text-green-500' : 'text-red-500'"
+              :icon="row.amount > 0 ? 'arrow-up' : 'arrow-down'"
+            >
+            </fa-icon>
             {{ row.amount }}
           </b-table-column>
         </template>
