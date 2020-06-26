@@ -17,15 +17,10 @@
         Пользователи
       </b-navbar-item>
 
-      <b-navbar-dropdown>
-        <template #label>
-          <fa-icon class="fa-fw mr-2" icon="boxes"></fa-icon>
-          Администрирование
-        </template>
-
-        <b-navbar-item tag="nuxt-link" to="/transactions">Транзакции</b-navbar-item>
-        <b-navbar-item tag="nuxt-link" to="/tokens">Токены</b-navbar-item>
-      </b-navbar-dropdown>
+      <b-navbar-item tag="nuxt-link" to="/transactions">
+        <fa-icon class="fa-fw mr-2" icon="exchange-alt"></fa-icon>
+        Транзакции
+      </b-navbar-item>
 
       <b-navbar-dropdown>
         <template #label>
@@ -42,6 +37,13 @@
       <b-navbar-item tag="nuxt-link" to="/profile" @click="$auth.logout()">
         <fa-icon class="fa-fw mr-2" icon="user-circle"></fa-icon>
         {{ getUser.fullname }}
+      </b-navbar-item>
+
+      <b-navbar-item v-if="isClient" tag="div">
+        <p class="card-footer-item justify-start">
+          <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
+          {{ getUser.balance }} сом
+        </p>
       </b-navbar-item>
 
       <b-navbar-item tag="div">

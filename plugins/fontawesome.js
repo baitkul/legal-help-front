@@ -6,11 +6,11 @@ import {
   faAngleRight,
   faArrowDown,
   faArrowUp,
-  faBoxes,
   faCalendarAlt,
   faCog,
   faEllipsisH,
   faEnvelope,
+  faExchangeAlt,
   faExclamationCircle,
   faEye,
   faFileAlt,
@@ -38,11 +38,11 @@ library.add(faAngleLeft)
 library.add(faAngleRight)
 library.add(faArrowDown)
 library.add(faArrowUp)
-library.add(faBoxes)
 library.add(faCalendarAlt)
 library.add(faCog)
 library.add(faEllipsisH)
 library.add(faEnvelope)
+library.add(faExchangeAlt)
 library.add(faExclamationCircle)
 library.add(faEye)
 library.add(faFileAlt)

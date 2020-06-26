@@ -32,7 +32,7 @@ button {
   @apply font-bold;
 }
 .breadcrumb {
-  @apply m-0 font-bold uppercase !important;
+  @apply font-bold uppercase !important;
 }
 a,
 body,
