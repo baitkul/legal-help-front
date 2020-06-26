@@ -12,10 +12,10 @@
       </div>
     </div>
 
-    <div v-if="getUser.balance" class="card-footer">
+    <div v-if="isClient" class="card-footer">
       <p class="card-footer-item justify-start">
         <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
-        {{ getUser.balance }} сом
+        {{ getUser.balance ? getUser.balance : 0 }} сом
       </p>
     </div>
 
@@ -49,6 +49,7 @@ import { format } from 'date-fns'
 export default {
   computed: {
     ...mapGetters([
+      'isClient',
       'getUser',
       'getRoles',
     ]),

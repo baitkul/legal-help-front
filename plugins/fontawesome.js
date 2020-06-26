@@ -15,6 +15,7 @@ import {
   faEye,
   faFileAlt,
   faFrown,
+  faHistory,
   faIdCard,
   faInfo,
   faMapMarkerAlt,
@@ -47,6 +48,7 @@ library.add(faExclamationCircle)
 library.add(faEye)
 library.add(faFileAlt)
 library.add(faFrown)
+library.add(faHistory)
 library.add(faIdCard)
 library.add(faInfo)
 library.add(faMapMarkerAlt)

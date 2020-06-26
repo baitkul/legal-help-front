@@ -44,9 +44,11 @@ export default {
         amount: [
           {
             validator: (rule, value, callback) => {
-              const pattern = /^[-]?[1-9][0-9]*$/
+              const pattern = /^[1-9][0-9]*$/
               if (!pattern.test(value)) {
                 callback(new Error('Сумма невалидна'))
+              } else if (value > 10000) {
+                callback(new Error('Макс. сумма - 10 000'))
               } else {
                 callback()
               }
@@ -64,11 +66,11 @@ export default {
       }
 
       const params = {
-        amount: Number.parseInt(this.model.amount),
         receiverId: this.entity.id,
+        amount: Number.parseInt(this.model.amount),
       }
 
-      this.$axios.$post('transactions', params)
+      this.$axios.$post('transactions/replenish', params)
         .then(this.resolveHandler)
         .catch(this.rejectHandler)
     },

@@ -9,20 +9,31 @@
     </nav>
 
     <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
+      <div class="flex lg:justify-end">
+        <div class="mt-3">
+          <b-field class="control">
+            <b-select v-model="filter">
+              <option value="all">Все</option>
+              <option value="replenishment">Пополнение баланса</option>
+              <option value="payment">Снятие с баланса</option>
+              <option value="cancelled">Отменённый</option>
+            </b-select>
+          </b-field>
+        </div>
+      </div>
+
       <b-table v-if="!loading" class="mt-3" :data="data">
         <template #default="{ row }">
-          <b-table-column v-if="!isClient" label="Получатель">
+          <b-table-column label="ID">
+            {{ row.id }}
+          </b-table-column>
+
+          <b-table-column v-if="isAdmin || isOperator" label="Получатель">
             {{ row.receiver.fullname }}
           </b-table-column>
 
-          <b-table-column label="Отправитель">
-            {{ row.originatorDetails }}
-          </b-table-column>
-
-          <b-table-column label="Дата создания">
-            <b-tag class="is-light font-bold">
-              {{ format(row.createdAt) }}
-            </b-tag>
+          <b-table-column v-if="isAdmin || isOperator" label="Отправитель">
+            {{ row.remitterDetails }}
           </b-table-column>
 
           <b-table-column label="Сумма">
@@ -33,6 +44,27 @@
             >
             </fa-icon>
             {{ row.amount }}
+          </b-table-column>
+
+          <b-table-column label="Дата создания">
+            <b-tag class="is-light font-bold">
+              {{ format(row.createdAt) }}
+            </b-tag>
+          </b-table-column>
+
+          <b-table-column v-if="isAdmin || isOperator" label="Действия">
+            <div>
+              <b-dropdown v-if="row.action === 'REPLENISHMENT'" position="is-top-left">
+                <b-button slot="trigger" type="is-text">
+                  <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
+                </b-button>
+
+                <b-dropdown-item tag="button" @click="onCancel(row.id)">
+                  <fa-icon class="fa-fw mr-2" icon="history"></fa-icon>
+                  Отмена транзакции
+                </b-dropdown-item>
+              </b-dropdown>
+            </div>
           </b-table-column>
         </template>
 
@@ -73,12 +105,21 @@ export default {
       total: 0,
       current: 1,
       perPage: 10,
+      filter: 'all',
     }
   },
   computed: {
     ...mapGetters([
+      'isAdmin',
+      'isOperator',
       'isClient',
     ])
+  },
+  watch: {
+    filter (newVal, oldVal) {
+      this.current = 1
+      this.fetch()
+    },
   },
   created () {
     this.fetch()
@@ -88,12 +129,40 @@ export default {
       const params = {
         page: this.current,
         pageSize: this.perPage,
+        filter: this.filter,
       }
 
       const data = await this.$axios.$get('transactions', { params })
       this.data = data.results
       this.total = data.total
       this.loading = false
+    },
+    onCancel (id) {
+      this.$buefy.dialog.confirm({
+        title: 'Отменить транзакцию',
+        message: 'Вы действительно хотите отменить данную транзакцию?',
+        cancelText: 'Назад',
+        confirmText: 'Отменить',
+        onConfirm: () => {
+          this.$axios.$post('transactions/cancel', { id })
+            .then(() => {
+              this.$buefy.notification.open({
+                type: 'is-success',
+                message: 'Транзакция отменена',
+              })
+
+              this.fetch()
+            })
+            .catch((err) => {
+              const message = err.response.data.message
+
+              this.$buefy.notification.open({
+                type: 'is-danger',
+                message,
+              })
+            })
+        }
+      })
     },
     format (date) {
       return format(new Date(date), 'dd.MM.yyyy HH:mm:ss')

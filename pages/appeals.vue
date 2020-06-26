@@ -9,15 +9,15 @@
     </nav>
 
     <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
-      <div class="flex flex-wrap" :class="{ 'lg:justify-end': isClient, 'justify-between': !isClient }">
-        <b-button v-if="!isClient" class="mt-3" type="is-primary" @click="onCreate">
+      <div class="flex flex-wrap" :class="{ 'lg:justify-end': isClient, 'justify-between': isAdmin || isOperator }">
+        <b-button v-if="isAdmin || isOperator" class="mt-3" type="is-primary" @click="onCreate">
           <fa-icon class="fa-fw mr-2" icon="plus"></fa-icon>
           Добавить
         </b-button>
 
         <div class="mt-3">
           <b-field class="control">
-            <b-select v-model="filter" placeholder="Select a name">
+            <b-select v-model="filter">
               <option value="all">Все</option>
               <option value="accepted">Принятые</option>
             </b-select>
@@ -91,7 +91,7 @@
                 <fa-icon class="fa-fw" icon="eye"></fa-icon>
               </b-button>
 
-              <b-dropdown v-if="!isClient">
+              <b-dropdown v-if="isAdmin || isOperator">
                 <b-button slot="trigger" type="is-text">
                   <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
                 </b-button>
@@ -182,6 +182,8 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'isAdmin',
+      'isOperator',
       'isClient',
     ])
   },
@@ -203,7 +205,7 @@ export default {
       const params = {
         page: this.current,
         pageSize: this.perPage,
-        filter: this.filter
+        filter: this.filter,
       }
 
       if (this.search) {

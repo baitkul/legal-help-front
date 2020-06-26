@@ -12,7 +12,7 @@
         Обращения
       </b-navbar-item>
 
-      <b-navbar-item v-if="!isClient" tag="nuxt-link" to="/users">
+      <b-navbar-item v-if="isAdmin || isOperator" tag="nuxt-link" to="/users">
         <fa-icon class="fa-fw mr-2" icon="user-friends"></fa-icon>
         Пользователи
       </b-navbar-item>
@@ -42,7 +42,7 @@
       <b-navbar-item v-if="isClient" tag="div">
         <p class="card-footer-item justify-start">
           <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
-          {{ getUser.balance }} сом
+          {{ getUser.balance ? getUser.balance : 0 }} сом
         </p>
       </b-navbar-item>
 
@@ -65,6 +65,8 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn',
+      'isAdmin',
+      'isOperator',
       'isClient',
       'getUser',
     ])
