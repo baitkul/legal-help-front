@@ -40,7 +40,8 @@ label,
 input,
 select,
 button,
-textarea {
+textarea,
+.breadcrumb {
   @apply text-sm !important;
 }
 @screen lg {
@@ -50,7 +51,8 @@ textarea {
   input,
   select,
   button,
-  textarea {
+  textarea,
+  .breadcrumb {
     @apply text-base !important;
   }
 }

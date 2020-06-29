@@ -52,6 +52,12 @@
             </b-tag>
           </b-table-column>
 
+          <b-table-column v-if="isAdmin || isOperator" label="Дата отмены">
+            <b-tag class="is-light font-bold">
+              {{ format(row.canceledAt) }}
+            </b-tag>
+          </b-table-column>
+
           <b-table-column v-if="isAdmin || isOperator" label="Действия">
             <div>
               <b-dropdown v-if="row.action === 'REPLENISHMENT' && !row.canceledAt" position="is-top-left">

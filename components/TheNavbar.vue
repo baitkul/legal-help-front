@@ -22,7 +22,7 @@
         Транзакции
       </b-navbar-item>
 
-      <b-navbar-dropdown>
+      <b-navbar-dropdown collapsible>
         <template #label>
           <fa-icon class="fa-fw mr-2" icon="cog"></fa-icon>
           Настройки
@@ -40,7 +40,7 @@
       </b-navbar-item>
 
       <b-navbar-item v-if="isClient" tag="div">
-        <p class="card-footer-item justify-start">
+        <p>
           <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
           {{ getUser.balance ? getUser.balance : 0 }} сом
         </p>
@@ -48,7 +48,7 @@
 
       <b-navbar-item tag="div">
         <div>
-          <b-button class="border-none font-normal" @click="$auth.logout()">
+          <b-button class="border-none p-0 font-normal" @click="$auth.logout()">
             <fa-icon class="fa-fw mr-2" icon="sign-out-alt"></fa-icon>
             Выйти
           </b-button>

@@ -232,6 +232,7 @@ export default {
               })
 
               this.fetch()
+              this.$auth.fetchUser()
             })
             .catch((err) => {
               const message = err.response.data.message
