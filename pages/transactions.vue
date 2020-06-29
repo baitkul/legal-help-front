@@ -54,7 +54,7 @@
 
           <b-table-column v-if="isAdmin || isOperator" label="Действия">
             <div>
-              <b-dropdown v-if="row.action === 'REPLENISHMENT'" position="is-top-left">
+              <b-dropdown v-if="row.action === 'REPLENISHMENT' && !row.canceledAt" position="is-top-left">
                 <b-button slot="trigger" type="is-text">
                   <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
                 </b-button>
