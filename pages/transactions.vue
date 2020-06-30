@@ -39,8 +39,8 @@
           <b-table-column label="Сумма">
             <fa-icon
               class="fa-fw mr-2 is-success"
-              :class="row.amount > 0 ? 'text-green-500' : 'text-red-500'"
-              :icon="row.amount > 0 ? 'arrow-up' : 'arrow-down'"
+              :class="!row.canceledAt ? 'text-green-500' : 'text-red-500'"
+              :icon="!row.canceledAt ? 'check' : 'times'"
             >
             </fa-icon>
             {{ row.amount }}

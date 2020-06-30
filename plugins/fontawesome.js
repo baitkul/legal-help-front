@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faAngleLeft,
   faAngleRight,
-  faArrowDown,
-  faArrowUp,
   faCalendarAlt,
+  faCheck,
   faCog,
   faEllipsisH,
   faEnvelope,
@@ -24,6 +23,7 @@ import {
   faPlus,
   faRandom,
   faSignOutAlt,
+  faTimes,
   faUser,
   faUserCircle,
   faUserFriends,
@@ -37,9 +37,8 @@ config.autoAddCss = false
 // can add other styles or just individual icons.
 library.add(faAngleLeft)
 library.add(faAngleRight)
-library.add(faArrowDown)
-library.add(faArrowUp)
 library.add(faCalendarAlt)
+library.add(faCheck)
 library.add(faCog)
 library.add(faEllipsisH)
 library.add(faEnvelope)
@@ -57,6 +56,7 @@ library.add(faPhoneAlt)
 library.add(faPlus)
 library.add(faRandom)
 library.add(faSignOutAlt)
+library.add(faTimes)
 library.add(faUser)
 library.add(faUserCircle)
 library.add(faUserFriends)
