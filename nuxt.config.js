@@ -64,12 +64,12 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    proxy: true,
-    prefix: '/api/v1'
+    // proxy: true,
+    prefix: '/api'
   },
-  proxy: {
-    '/api': '176.126.164.131'
-  },
+  // proxy: {
+  //   '/api': '176.126.164.131'
+  // },
   auth: {
     redirect: {
       login: '/',
