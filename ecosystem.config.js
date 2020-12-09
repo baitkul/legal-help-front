@@ -1,4 +1,3 @@
-require('dotenv').config()
 const Package = require('./package.json')
 
 module.exports = {
