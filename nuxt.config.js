@@ -10,7 +10,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -65,10 +65,10 @@ export default {
   */
   axios: {
     proxy: true,
-    prefix: process.env.PREFIX
+    prefix: '/api/v1'
   },
   proxy: {
-    '/api': process.env.API
+    '/api': '176.126.164.131'
   },
   auth: {
     redirect: {

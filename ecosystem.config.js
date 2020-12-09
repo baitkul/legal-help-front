@@ -10,10 +10,10 @@ module.exports = {
   deploy: {
     production: {
       ssh_options: ['ForwardAgent=yes'],
-      user: process.env.PM2_USER,
-      host: [process.env.PM2_HOST],
+      user: 'root',
+      host: '176.126.164.131',
       ref: 'origin/master',
-      repo: `git@github.com:${process.env.PM2_USERNAME}/${Package.name}.git`,
+      repo: `git@github.com:baitkul/legal-help-front.git`,
       path: '/var/www/front',
       'post-deploy': 'npm ci && npm run build'
     }
