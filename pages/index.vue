@@ -1,6 +1,6 @@
 <template>
   <div @keyup.enter="onSubmit">
-    <div class="font-bold text-2xl lg:text-3xl text-center">
+    <div class="text-2xl font-bold text-center lg:text-3xl">
       Вход в систему
     </div>
 
@@ -58,12 +58,10 @@ export default {
       })
         .catch((err) => {
           const status = err.response.status
+          const message = this.$_.get(err, 'response.data.message', 'Неверная email или пароль')
 
           if (status === 400 || status === 401) {
-            this.$buefy.notification.open({
-              type: 'is-danger',
-              message: 'Неверная эл. почта или пароль',
-            })
+            this.$buefy.notification.open({ type: 'is-danger', message })
           }
         })
     }

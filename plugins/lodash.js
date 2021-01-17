@@ -5,6 +5,7 @@ import {
   isNil,
   omit,
   omitBy,
+  get,
 } from 'lodash-es'
 
 Vue.prototype.$_ = {
@@ -16,4 +17,5 @@ Vue.prototype.$_ = {
   // Object
   omit,
   omitBy,
+  get,
 }

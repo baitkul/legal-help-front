@@ -249,7 +249,7 @@ export default {
       this.fetch()
     },
     async onRemove (userId) {
-      await this.$axios.$delete(`/users/${userId}/hard`)
+      await this.$axios.$delete(`/users/${userId}`)
       await this.fetch()
     }
   },
