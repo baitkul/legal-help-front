@@ -8,10 +8,10 @@
       </ul>
     </nav>
 
-    <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
+    <div class="px-3 pb-3 mt-3 bg-white border rounded shadow">
       <div class="flex flex-wrap" :class="{ 'lg:justify-end': isClient, 'justify-between': isAdmin || isOperator }">
         <b-button v-if="isAdmin || isOperator" class="mt-3" type="is-primary" @click="onCreate">
-          <fa-icon class="fa-fw mr-2" icon="plus"></fa-icon>
+          <fa-icon class="mr-2 fa-fw" icon="plus"></fa-icon>
           Добавить
         </b-button>
 
@@ -61,14 +61,14 @@
                   v-else
                   type="is-light"
                 >
-                  {{ row.phone }}
+                  <a :href="`tel:${row.phone}`" class="underline">{{ row.phone }}</a>
                 </b-button>
 
                 <span class="ml-2 text-xs">{{ `Принято: ${row.acceptedByUsersCount}` }}</span>
               </template>
 
               <template v-else>
-                {{ row.phone }}
+                <a :href="`tel:${row.phone}`" class="underline">{{ row.phone }}</a>
                 <b-button
                   class="ml-2 text-xs"
                   type="is-primary"
@@ -91,14 +91,23 @@
                 <fa-icon class="fa-fw" icon="eye"></fa-icon>
               </b-button>
 
-              <b-dropdown v-if="isAdmin || isOperator">
+              <b-dropdown v-if="isAdmin || isOperator" position="is-bottom-left">
                 <b-button slot="trigger" type="is-text">
                   <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
                 </b-button>
 
                 <b-dropdown-item tag="button" @click="onEdit($_.cloneDeep(row))">
-                  <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
+                  <fa-icon class="mr-2 fa-fw" icon="pen"></fa-icon>
                   Редактирование
+                </b-dropdown-item>
+
+                <b-dropdown-item
+                  v-if="isAdmin && row.role !== 'ADMIN'"
+                  tag="button"
+                  @click="onRemove(row.id)"
+                >
+                  <fa-icon class="mr-2 fa-fw" icon="times"></fa-icon>
+                  Удалить обращение
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -107,7 +116,7 @@
 
         <template #empty>
           <section class="section">
-            <div class="content text-gray-700 text-center">
+            <div class="text-center text-gray-700 content">
               <p>
                 <fa-icon icon="frown" size="3x"></fa-icon>
               </p>
@@ -275,6 +284,10 @@ export default {
       this.type = ''
       this.users = []
       this.entity = null
+    },
+    async onRemove (appealId) {
+      await this.$axios.$delete(`/appeals/${appealId}/hard`)
+      await this.fetch()
     },
     pageChange (page) {
       this.current = page

@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 export default {
   mode: 'spa',
   /*
@@ -68,7 +70,7 @@ export default {
     prefix: '/api'
   },
   proxy: {
-    '/api': '176.126.164.131'
+    '/api': isProduction ? '176.126.164.131' : 'http://localhost:4000'
   },
   auth: {
     redirect: {

@@ -8,10 +8,10 @@
       </ul>
     </nav>
 
-    <div class="mt-3 border bg-white px-3 pb-3 rounded shadow">
+    <div class="px-3 pb-3 mt-3 bg-white border rounded shadow">
       <div class="flex flex-wrap justify-between">
         <b-button class="mt-3" type="is-primary" @click="onCreate">
-          <fa-icon class="fa-fw mr-2" icon="plus"></fa-icon>
+          <fa-icon class="mr-2 fa-fw" icon="plus"></fa-icon>
           Добавить
         </b-button>
 
@@ -48,13 +48,13 @@
           </b-table-column>
 
           <b-table-column label="Роль">
-            <b-tag class="is-light font-bold">
+            <b-tag class="font-bold is-light">
               {{ getRoles.find(role => role.value === row.role).label.toUpperCase() }}
             </b-tag>
           </b-table-column>
 
           <b-table-column label="Дата регистрации">
-            <b-tag class="is-light font-bold">
+            <b-tag class="font-bold is-light">
               {{ format(row.createdAt) }}
             </b-tag>
           </b-table-column>
@@ -65,7 +65,7 @@
                 <fa-icon class="fa-fw" icon="eye"></fa-icon>
               </b-button>
 
-              <b-dropdown>
+              <b-dropdown position="is-bottom-left">
                 <b-button slot="trigger" type="is-text">
                   <fa-icon class="fa-fw" icon="ellipsis-h"></fa-icon>
                 </b-button>
@@ -75,7 +75,7 @@
                   tag="button"
                   @click="onEdit($_.cloneDeep(row))"
                 >
-                  <fa-icon class="fa-fw mr-2" icon="pen"></fa-icon>
+                  <fa-icon class="mr-2 fa-fw" icon="pen"></fa-icon>
                   Редактирование
                 </b-dropdown-item>
 
@@ -84,8 +84,17 @@
                   tag="button"
                   @click="onBalance($_.cloneDeep(row))"
                 >
-                  <fa-icon class="fa-fw mr-2" icon="wallet"></fa-icon>
+                  <fa-icon class="mr-2 fa-fw" icon="wallet"></fa-icon>
                   Пополнение баланса
+                </b-dropdown-item>
+
+                <b-dropdown-item
+                  v-if="isAdmin && row.role !== 'ADMIN'"
+                  tag="button"
+                  @click="onRemove(row.id)"
+                >
+                  <fa-icon class="mr-2 fa-fw" icon="times"></fa-icon>
+                  Удалить пользователя
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -94,7 +103,7 @@
 
         <template #empty>
           <section class="section">
-            <div class="content text-gray-700 text-center">
+            <div class="text-center text-gray-700 content">
               <p>
                 <fa-icon icon="frown" size="3x"></fa-icon>
               </p>
@@ -238,6 +247,10 @@ export default {
     pageChange (page) {
       this.current = page
       this.fetch()
+    },
+    async onRemove (userId) {
+      await this.$axios.$delete(`/users/${userId}/hard`)
+      await this.fetch()
     }
   },
   head () {

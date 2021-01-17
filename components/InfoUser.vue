@@ -4,7 +4,7 @@
       <div class="modal-card-title">{{ title }}</div>
     </header>
 
-    <section class="modal-card-body px-0">
+    <section class="px-0 modal-card-body">
       <div class="panel-block">
         <span class="panel-icon">
           <fa-icon class="fa-fw" icon="envelope"></fa-icon>
@@ -16,7 +16,7 @@
         <span class="panel-icon">
           <fa-icon class="fa-fw" icon="phone-alt"></fa-icon>
         </span>
-        {{ model.phone }}
+        <a :href="`tel:${model.phone}`" class="underline">{{ model.phone }}</a>
       </div>
 
       <div class="panel-block">
