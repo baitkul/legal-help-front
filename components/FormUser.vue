@@ -7,7 +7,7 @@
     <section class="modal-card-body">
       <b-form ref="form" #default="{ errors }" :model="model" :rules="rules">
         <b-field
-          v-if="createMode"
+          v-if="createMode || isAdmin"
           :type="{'is-danger': errors.email}"
           label="Эл. почта"
           :message="errors.email"
@@ -62,7 +62,7 @@
               :key="role.value"
               v-model="model.role"
               :native-value="role.value"
-              :disabled="editMode"
+              :disabled="editMode && !isAdmin"
               class="text-xs lg:text-base"
             >
               <span class="text-sm lg:text-base">{{ role.label }}</span>
@@ -103,6 +103,7 @@ export default {
   computed: {
     ...mapGetters([
       'getRoles',
+      'isAdmin'
     ]),
     createMode () {
       return !this.entity.id
@@ -121,9 +122,9 @@ export default {
         }
       }
 
-      if (this.editMode) {
-        rules = this.$_.omit(rules, ['email'])
-      }
+      // if (this.editMode) {
+      //   rules = this.$_.omit(rules, ['email'])
+      // }
 
       if (this.model.role !== 'CLIENT') {
         rules = this.$_.omit(rules, ['phone'])
