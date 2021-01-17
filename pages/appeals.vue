@@ -42,7 +42,13 @@
           </b-table-column>
 
           <b-table-column label="ФИО абонента">
-            {{ row.fullname }}
+            <div class="flex items-center justify-between">
+              {{ row.fullname }}
+
+              <span v-show="oneDayHasPassed(row.createdAt)" class="p-1 text-xs font-bold text-white bg-red-500 rounded-md">
+                > 24ч
+              </span>
+            </div>
           </b-table-column>
 
           <b-table-column label="Номер телефона">
@@ -161,6 +167,7 @@
 </template>
 
 <script>
+import { differenceInHours, parseISO } from 'date-fns'
 import { debounce } from 'lodash-es'
 import { mapGetters } from 'vuex'
 import FormAppeal from '~/components/FormAppeal'
@@ -292,6 +299,9 @@ export default {
     pageChange (page) {
       this.current = page
       this.fetch()
+    },
+    oneDayHasPassed (createdDate) {
+      return differenceInHours(new Date(), parseISO(createdDate))
     }
   },
   head () {
