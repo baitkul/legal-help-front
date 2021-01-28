@@ -60,21 +60,21 @@
                   outlined
                   @click="onAccept(row.id)"
                 >
-                  {{ row.phone }}
+                  +{{ row.phone }}
                 </b-button>
 
                 <b-button
                   v-else
                   type="is-light"
                 >
-                  <a :href="`tel:${row.phone}`" class="underline">{{ row.phone }}</a>
+                  <a :href="`tel:+${row.phone}`" class="underline">+{{ row.phone }}</a>
                 </b-button>
 
                 <span class="ml-2 text-xs">{{ `Принято: ${row.acceptedByUsersCount}` }}</span>
               </template>
 
               <template v-else>
-                <a :href="`tel:${row.phone}`" class="underline">{{ row.phone }}</a>
+                <a :href="`tel:+${row.phone}`" class="underline">+{{ row.phone }}</a>
                 <b-button
                   class="ml-2 text-xs"
                   type="is-primary"

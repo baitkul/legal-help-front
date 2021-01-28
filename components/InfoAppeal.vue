@@ -16,7 +16,7 @@
         <span class="panel-icon">
           <fa-icon class="fa-fw" icon="phone-alt"></fa-icon>
         </span>
-        <a :href="`tel:${model.phone}`" class="underline">{{ model.phone }}</a>
+        <a :href="`tel:+${model.phone}`" class="underline">+{{ model.phone }}</a>
       </div>
 
       <div class="panel-block">
