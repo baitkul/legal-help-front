@@ -9,8 +9,8 @@ module.exports = {
   deploy: {
     production: {
       ssh_options: ['ForwardAgent=yes'],
-      user: 'root',
-      host: '176.126.164.131',
+      user: process.env.PM2_USER,
+      host: process.env.PM2_HOST,
       ref: 'origin/master',
       repo: `git@github.com:baitkul/legal-help-front.git`,
       path: '/var/www/front',
